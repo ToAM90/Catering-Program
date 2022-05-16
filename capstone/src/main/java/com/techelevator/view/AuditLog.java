@@ -13,6 +13,8 @@ public class AuditLog {
     public void printToAuditLog(String message) {
         File newFile = new File("Audit.txt");
         PrintWriter writer = null;
+        LocalDateTime currentTime = LocalDateTime.now();
+        currentTimeFormatted = currentTime.format(formatter);
         try {
             if (newFile.exists()) {
                 writer = new PrintWriter(new FileOutputStream(newFile.getAbsoluteFile(), true));
@@ -20,7 +22,7 @@ public class AuditLog {
             else {
                 writer = new PrintWriter(newFile.getAbsoluteFile());
             }
-            writer.append(message);
+            writer.append(currentTimeFormatted + message);
             writer.flush();
             writer.close();
         } catch (FileNotFoundException e) {
@@ -28,22 +30,19 @@ public class AuditLog {
         }
     }
 
-    public void auditMoneyDeposit(LocalDateTime currentTime, BigDecimal amountToDeposit, BigDecimal currentBalance) {
+    public void auditMoneyDeposit(BigDecimal amountToDeposit, BigDecimal currentBalance) {
         // local date time, money deposited, total balance
-        currentTimeFormatted = currentTime.format(formatter);
-        String moneyDeposited = currentTimeFormatted + " MONEY FED: $" + amountToDeposit + " $" + currentBalance + "\n";
+        String moneyDeposited = " MONEY FED: $" + amountToDeposit + " $" + currentBalance + "\n";
         printToAuditLog(moneyDeposited);
     }
 
-    public void auditItemPurchased(LocalDateTime currentTime, String food, String slot, BigDecimal oldBalance, BigDecimal newBalance) {
-        currentTimeFormatted = currentTime.format(formatter);
-        String itemPurchased = currentTimeFormatted + " " + food + " " + slot + " $" + oldBalance + " $" + newBalance + "\n";
+    public void auditItemPurchased(String food, String slot, BigDecimal oldBalance, BigDecimal newBalance) {
+        String itemPurchased = " " + food + " " + slot + " $" + oldBalance + " $" + newBalance + "\n";
         printToAuditLog(itemPurchased);
     }
 
-    public void auditChangeGiven(LocalDateTime currentTime, BigDecimal change, BigDecimal newBalance) {
-        currentTimeFormatted = currentTime.format(formatter);
-        String changeGiven = currentTimeFormatted + " CHANGE GIVEN: $" + change + " $" + newBalance + "\n";
+    public void auditChangeGiven(BigDecimal change, BigDecimal newBalance) {
+        String changeGiven = " CHANGE GIVEN: $" + change + " $" + newBalance + "\n";
         printToAuditLog(changeGiven);
     }
 

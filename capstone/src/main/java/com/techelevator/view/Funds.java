@@ -19,8 +19,7 @@ public class Funds {
 
     public void deposit(BigDecimal amountToDeposit) {
         balance = balance.add(amountToDeposit);
-        LocalDateTime currentTime = LocalDateTime.now();
-        auditLog.auditMoneyDeposit(currentTime, amountToDeposit, this.getBalance());
+        auditLog.auditMoneyDeposit(amountToDeposit, this.getBalance());
     }
 
     public void withdrawal(BigDecimal amountToWithdrawal) {
@@ -50,7 +49,7 @@ public class Funds {
         BigDecimal change = getBalance();
         withdrawal(getBalance());
         LocalDateTime currentTime = LocalDateTime.now();
-        auditLog.auditChangeGiven(currentTime, change, getBalance());
+        auditLog.auditChangeGiven(change, getBalance());
 
         return "Your change is: " + dollarAmt + " Dollars " + quarterAmt + " Quarters " + dimesAmt + " Dimes " + nickelAmt + " Nickels\n";
 

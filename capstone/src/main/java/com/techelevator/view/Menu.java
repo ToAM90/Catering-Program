@@ -12,14 +12,11 @@ public void levelOneSubD(VendingMachine vendingMachine){
 
 public void levelOneSubP(){
     System.out.println("(M) Feed Money\n(S) Select Item\n(F) Finish Transaction");
-    // running total
+
 }
 
 public void subM(){
     System.out.println("(1) $1\n(2) $5\n(3) $10\n(4) $20\n(B) Back");
 }
-
-// to-do -- build out
-
 
 }

@@ -55,7 +55,7 @@ public class VendingMachine {
 
         Set<String> keys = sorted.keySet();
         for (String key : keys) {
-            System.out.println(key + " " + sorted.get(key));
+            System.out.println(key + " " + sorted.get(key) + " Amount Left: " + sorted.get(key).getStock());
         }
     }
 

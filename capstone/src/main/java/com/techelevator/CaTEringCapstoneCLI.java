@@ -1,9 +1,7 @@
 package com.techelevator;
 
 import com.techelevator.view.*;
-
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
 import java.util.Scanner;
 
 public class CaTEringCapstoneCLI {
@@ -46,6 +44,8 @@ public class CaTEringCapstoneCLI {
             } else if (level1Input.equals("E")) {
                 // exit
                 keepGoing = false;
+            }else {
+                System.out.println("\nInvalid selection. Try again.\n");
             }
         } while (keepGoing);
     }
@@ -67,6 +67,8 @@ public class CaTEringCapstoneCLI {
                 // exit
                 subF();
                 keepGoing = false;
+            }else {
+                System.out.println("\nInvalid selection. Try again.\n");
             }
 
 
@@ -76,6 +78,7 @@ public class CaTEringCapstoneCLI {
     public void subM() {
         // add money
         boolean keepGoing = true;
+        System.out.println("\nCurrent Money Provided: $" + balance.getBalance() + "\n");
         do {
             this.menu.subM();
             String levelMInput = inputScanner.nextLine().toUpperCase();
@@ -94,6 +97,8 @@ public class CaTEringCapstoneCLI {
                 balance.deposit(new BigDecimal("20.00"));
             } else if (levelMInput.equals("B")) {
                 keepGoing = false;
+            } else {
+                System.out.println("\nInvalid selection. Try again.\n");
             }
             System.out.println("\nCurrent Money Provided: $" + balance.getBalance() + "\n");
 
@@ -106,6 +111,7 @@ public class CaTEringCapstoneCLI {
         // select food
         boolean keepGoing = true;
         this.menu.levelOneSubD(this.vendingMachine);
+        System.out.println("\nCurrent Money Provided: $" + balance.getBalance() + "\n");
         System.out.println("\nPress (B) to go back.");
 
         do {
@@ -130,8 +136,7 @@ public class CaTEringCapstoneCLI {
                 balance.withdrawal(item.getPrice());
 
                 // sending info to Audit file
-                LocalDateTime currentTime = LocalDateTime.now();
-                auditLog.auditItemPurchased(currentTime, item.getName(), item.getSlot(), oldBalance, balance.getBalance());
+                auditLog.auditItemPurchased(item.getName(), item.getSlot(), oldBalance, balance.getBalance());
 
                 // printing message
                 System.out.println("\nSelected: " + item.getName() + " $" + item.getPrice() + " Remaining Balance: $" + balance.getBalance());
